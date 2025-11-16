@@ -1,0 +1,101 @@
+version: '3.8'
+
+services:
+  # PostgreSQL for metadata
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: nebuladb
+      POSTGRES_USER: nebuladb
+      POSTGRES_PASSWORD: nebuladb123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docs/database-schema.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - nebuladb
+
+  # MinIO for object storage
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: nebuladb
+      MINIO_ROOT_PASSWORD: nebuladb123
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - nebuladb
+
+  # Redis for caching and sessions
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - nebuladb
+
+  # Metadata API
+  metadata-api:
+    build:
+      context: ./backend/metadata-api
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgres://nebuladb:nebuladb123@postgres:5432/nebuladb?sslmode=disable
+      JWT_SECRET: your-super-secret-jwt-key
+      PORT: 8080
+      ENVIRONMENT: development
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - nebuladb
+
+  # Compute Engine
+  compute-engine:
+    build:
+      context: ./backend/compute-engine
+      dockerfile: Dockerfile
+    environment:
+      METADATA_API_URL: http://metadata-api:8080
+      MINIO_ENDPOINT: minio:9000
+      MINIO_ACCESS_KEY: nebuladb
+      MINIO_SECRET_KEY: nebuladb123
+    ports:
+      - "8081:8081"
+    depends_on:
+      - metadata-api
+      - minio
+    networks:
+      - nebuladb
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8080/api/v1
+    ports:
+      - "3000:3000"
+    depends_on:
+      - metadata-api
+    networks:
+      - nebuladb
+
+volumes:
+  postgres_data:
+  minio_data:
+  redis_data:
+
+networks:
+  nebuladb:
+    driver: bridge
