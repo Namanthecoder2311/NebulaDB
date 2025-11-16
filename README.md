@@ -34,7 +34,7 @@ NebulaDB/
 ## Team
 
 - **Frontend Developer**: Rohit
-- **Backend Developer**: Devin (Project Manager)
+- **Backend Developer**: Naman (Project Manager)
 
 ## ✅ MVP Complete: 6 Weeks
 
