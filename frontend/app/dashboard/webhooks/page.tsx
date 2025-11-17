@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Webhook, Plus, Trash2, Power } from 'lucide-react'
+import { Switch } from '@/components/ui/switch'
 
 export default function WebhooksPage() {
   const [webhooks] = useState([
@@ -35,10 +36,8 @@ export default function WebhooksPage() {
                     <p className="text-sm text-gray-600 font-mono">{webhook.url}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button className={`neu-button p-2 ${webhook.active ? 'text-green-600' : 'text-gray-400'}`}>
-                    <Power className="h-5 w-5" />
-                  </button>
+                <div className="flex items-center gap-3">
+                  <Switch checked={webhook.active} />
                   <button className="neu-button p-2 text-red-600">
                     <Trash2 className="h-5 w-5" />
                   </button>

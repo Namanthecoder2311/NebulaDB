@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { User, Bell, Shield, CreditCard, Globe } from 'lucide-react'
+import { Switch } from '@/components/ui/switch'
 
 export default function SettingsPage() {
   const [notifications, setNotifications] = useState({
@@ -46,11 +47,9 @@ export default function SettingsPage() {
             {Object.entries(notifications).map(([key, value]) => (
               <label key={key} className="flex items-center justify-between cursor-pointer">
                 <span className="text-sm text-gray-700 capitalize">{key} Alerts</span>
-                <input 
-                  type="checkbox" 
+                <Switch
                   checked={value}
-                  onChange={() => setNotifications({...notifications, [key]: !value})}
-                  className="w-5 h-5"
+                  onCheckedChange={(checked) => setNotifications({...notifications, [key]: checked})}
                 />
               </label>
             ))}

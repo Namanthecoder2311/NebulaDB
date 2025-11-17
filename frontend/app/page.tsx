@@ -1,261 +1,253 @@
 import Link from 'next/link'
-import { Database, Zap, Shield, BarChart3, Globe, Server, Lock } from 'lucide-react'
+import { Database, Zap, Shield, Globe, Server, Lock, ArrowRight, Check, Sparkles } from 'lucide-react'
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
-      {/* Header */}
-      <header className="px-6 lg:px-8 h-20 flex items-center neu-card mx-4 mt-4">
-        <Link className="flex items-center justify-center" href="/">
-          <div className="neu-pressed p-3 rounded-xl">
-            <Database className="h-6 w-6 text-primary" />
-          </div>
-          <span className="font-bold text-2xl ml-3 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            NebulaDB
-          </span>
-        </Link>
-        <nav className="ml-auto flex gap-6">
-          <Link className="text-sm font-medium hover:text-primary transition-colors" href="/auth/login">
-            Login
-          </Link>
-          <Link href="/auth/register">
-            <button className="neu-button px-6 py-2 text-sm font-medium text-primary">
-              Sign Up
-            </button>
-          </Link>
-        </nav>
-      </header>
+    <div className="min-h-screen bg-black text-white overflow-hidden">
+      {/* Gradient Background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,200,0.1),transparent_50%)]"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
 
-      {/* Hero Section */}
-      <main className="flex-1">
-        <section className="w-full py-20 md:py-32">
-          <div className="container px-4 md:px-6 mx-auto">
-            <div className="flex flex-col items-center space-y-8 text-center">
-              <div className="neu-card p-4 rounded-2xl">
-                <Globe className="h-16 w-16 text-primary" />
+      <div className="relative z-10">
+        {/* Header */}
+        <header className="border-b border-white/10 backdrop-blur-xl">
+          <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+            <Link href="/" className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-500">
+                <Database className="h-6 w-6 text-white" />
               </div>
-              <div className="space-y-4 max-w-3xl">
-                <h1 className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl">
-                  Serverless PostgreSQL
-                  <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    Across Global Datacenters
-                  </span>
-                </h1>
-                <p className="mx-auto max-w-[700px] text-gray-600 text-lg md:text-xl">
-                  Deploy databases in 7 global regions. Auto-generated APIs, real-time monitoring, 
-                  and pay only for what you use.
-                </p>
-              </div>
-              <div className="flex gap-4">
-                <Link href="/auth/register">
-                  <button className="neu-button px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-xl transition-all">
-                    Get Started Free
-                  </button>
-                </Link>
-                <Link href="/docs">
-                  <button className="neu-button px-8 py-4 text-lg font-semibold">
-                    View Documentation
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Features Section */}
-        <section className="w-full py-20 bg-transparent">
-          <div className="container px-4 md:px-6 mx-auto">
-            <div className="grid gap-8 lg:grid-cols-3">
-              <div className="neu-card p-8 hover:scale-105 transition-transform">
-                <div className="neu-pressed p-4 rounded-xl w-fit mb-4">
-                  <Server className="h-8 w-8 text-blue-600" />
-                </div>
-                <h3 className="text-2xl font-bold mb-3">Global Datacenters</h3>
-                <p className="text-gray-600">
-                  Deploy in US, EU, or Asia Pacific regions. Choose the datacenter closest to your users for optimal performance.
-                </p>
-                <div className="mt-4 text-sm text-primary font-medium">
-                  Starting at $0.08/GB
-                </div>
-              </div>
-              
-              <div className="neu-card p-8 hover:scale-105 transition-transform">
-                <div className="neu-pressed p-4 rounded-xl w-fit mb-4">
-                  <Zap className="h-8 w-8 text-purple-600" />
-                </div>
-                <h3 className="text-2xl font-bold mb-3">Serverless Compute</h3>
-                <p className="text-gray-600">
-                  Automatic scaling with ephemeral PostgreSQL instances. Pay per second of compute time used.
-                </p>
-                <div className="mt-4 text-sm text-primary font-medium">
-                  $0.04/hour compute
-                </div>
-              </div>
-              
-              <div className="neu-card p-8 hover:scale-105 transition-transform">
-                <div className="neu-pressed p-4 rounded-xl w-fit mb-4">
-                  <Lock className="h-8 w-8 text-green-600" />
-                </div>
-                <h3 className="text-2xl font-bold mb-3">Enterprise Security</h3>
-                <p className="text-gray-600">
-                  End-to-end encryption, row-level security, and comprehensive audit logging across all datacenters.
-                </p>
-                <div className="mt-4 text-sm text-primary font-medium">
-                  SOC 2 Compliant
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Datacenter Map */}
-        <section className="w-full py-20">
-          <div className="container px-4 md:px-6 mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">7 Global Datacenters</h2>
-              <p className="text-gray-600 text-lg">Deploy closer to your users for better performance</p>
-            </div>
-            
-            <div className="neu-card p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[
-                  { region: 'US East', city: 'Virginia', latency: '45ms', price: '$0.10/GB' },
-                  { region: 'US West', city: 'California', latency: '60ms', price: '$0.12/GB' },
-                  { region: 'EU Central', city: 'Frankfurt', latency: '85ms', price: '$0.11/GB' },
-                  { region: 'EU West', city: 'London', latency: '90ms', price: '$0.11/GB' },
-                  { region: 'Asia Pacific', city: 'Mumbai', latency: '120ms', price: '$0.08/GB' },
-                  { region: 'Asia Pacific', city: 'Singapore', latency: '140ms', price: '$0.09/GB' },
-                  { region: 'Asia Pacific', city: 'Tokyo', latency: '150ms', price: '$0.13/GB' },
-                ].map((dc, i) => (
-                  <div key={i} className="neu-pressed p-6 rounded-xl hover:shadow-lg transition-all">
-                    <div className="flex items-center justify-between mb-3">
-                      <Globe className="h-6 w-6 text-primary" />
-                      <span className="text-xs font-medium text-green-600">{dc.latency}</span>
-                    </div>
-                    <h4 className="font-bold text-lg">{dc.region}</h4>
-                    <p className="text-sm text-gray-600">{dc.city}</p>
-                    <div className="mt-3 text-sm font-medium text-primary">{dc.price}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Pricing Section */}
-        <section className="w-full py-20 bg-transparent">
-          <div className="container px-4 md:px-6 mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
-              <p className="text-gray-600 text-lg">Pay only for what you use. No hidden fees.</p>
-            </div>
-            
-            <div className="grid gap-8 lg:grid-cols-3 max-w-6xl mx-auto">
-              <div className="neu-card p-8">
-                <h3 className="text-2xl font-bold mb-2">Free</h3>
-                <p className="text-gray-600 mb-6">Perfect for getting started</p>
-                <div className="text-5xl font-bold mb-6">$0</div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center text-sm">
-                    <Shield className="h-4 w-4 mr-2 text-green-600" />
-                    1 Project
-                  </li>
-                  <li className="flex items-center text-sm">
-                    <Shield className="h-4 w-4 mr-2 text-green-600" />
-                    500MB Storage
-                  </li>
-                  <li className="flex items-center text-sm">
-                    <Shield className="h-4 w-4 mr-2 text-green-600" />
-                    1,000 API calls/month
-                  </li>
-                </ul>
-                <button className="neu-button w-full py-3 font-medium">
+              <span className="text-2xl font-bold gradient-text">NebulaDB</span>
+            </Link>
+            <nav className="flex items-center gap-6">
+              <Link href="/auth/login" className="text-sm text-gray-400 hover:text-white transition">
+                Login
+              </Link>
+              <Link href="/auth/register">
+                <button className="px-6 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-medium hover:shadow-lg hover:shadow-cyan-500/50 transition">
                   Get Started
                 </button>
+              </Link>
+            </nav>
+          </div>
+        </header>
+
+        {/* Hero */}
+        <section className="container mx-auto px-6 py-32 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8">
+            <Sparkles className="h-4 w-4 text-cyan-400" />
+            <span className="text-sm text-gray-300">Serverless PostgreSQL Platform</span>
+          </div>
+          
+          <h1 className="text-6xl md:text-8xl font-bold mb-6 leading-tight">
+            Build faster with
+            <br />
+            <span className="gradient-text">Serverless Postgres</span>
+          </h1>
+          
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-12">
+            Deploy databases globally in seconds. Auto-scaling, branching, and instant APIs. 
+            Pay only for what you use.
+          </p>
+          
+          <div className="flex items-center justify-center gap-4">
+            <Link href="/auth/register">
+              <button className="group px-8 py-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold hover:shadow-2xl hover:shadow-cyan-500/50 transition flex items-center gap-2">
+                Start Building Free
+                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition" />
+              </button>
+            </Link>
+            <Link href="/docs">
+              <button className="px-8 py-4 rounded-lg bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition">
+                View Docs
+              </button>
+            </Link>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto mt-24">
+            <div className="glass-card p-6">
+              <div className="text-4xl font-bold gradient-text mb-2">99.99%</div>
+              <div className="text-sm text-gray-400">Uptime SLA</div>
+            </div>
+            <div className="glass-card p-6">
+              <div className="text-4xl font-bold gradient-text mb-2">&lt;10ms</div>
+              <div className="text-sm text-gray-400">Query Latency</div>
+            </div>
+            <div className="glass-card p-6">
+              <div className="text-4xl font-bold gradient-text mb-2">7</div>
+              <div className="text-sm text-gray-400">Global Regions</div>
+            </div>
+          </div>
+        </section>
+
+        {/* Features */}
+        <section className="container mx-auto px-6 py-32">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold mb-4">Everything you need</h2>
+            <p className="text-xl text-gray-400">Production-ready from day one</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="glass-card p-8 group">
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                <Zap className="h-6 w-6 text-cyan-400" />
               </div>
-              
-              <div className="neu-card p-8 border-2 border-primary relative">
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-medium">
-                  Popular
-                </div>
-                <h3 className="text-2xl font-bold mb-2">Pro</h3>
-                <p className="text-gray-600 mb-6">For growing applications</p>
-                <div className="text-5xl font-bold mb-6">
-                  $29<span className="text-lg font-normal">/mo</span>
-                </div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center text-sm">
-                    <Shield className="h-4 w-4 mr-2 text-green-600" />
-                    Unlimited projects
-                  </li>
-                  <li className="flex items-center text-sm">
-                    <Shield className="h-4 w-4 mr-2 text-green-600" />
-                    10GB storage included
-                  </li>
-                  <li className="flex items-center text-sm">
-                    <Shield className="h-4 w-4 mr-2 text-green-600" />
-                    100,000 API calls/month
-                  </li>
-                  <li className="flex items-center text-sm">
-                    <Shield className="h-4 w-4 mr-2 text-green-600" />
-                    All datacenters
-                  </li>
-                </ul>
-                <button className="w-full py-3 font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl">
-                  Start Pro Trial
-                </button>
+              <h3 className="text-2xl font-bold mb-3">Instant Scaling</h3>
+              <p className="text-gray-400 mb-4">
+                Automatically scale from zero to millions of requests. No configuration needed.
+              </p>
+              <div className="flex items-center gap-2 text-cyan-400 text-sm font-medium">
+                Learn more <ArrowRight className="h-4 w-4" />
               </div>
-              
-              <div className="neu-card p-8">
-                <h3 className="text-2xl font-bold mb-2">Enterprise</h3>
-                <p className="text-gray-600 mb-6">For large-scale applications</p>
-                <div className="text-5xl font-bold mb-6">Custom</div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center text-sm">
-                    <Shield className="h-4 w-4 mr-2 text-green-600" />
-                    Custom limits
-                  </li>
-                  <li className="flex items-center text-sm">
-                    <Shield className="h-4 w-4 mr-2 text-green-600" />
-                    Dedicated support
-                  </li>
-                  <li className="flex items-center text-sm">
-                    <Shield className="h-4 w-4 mr-2 text-green-600" />
-                    SLA guarantees
-                  </li>
-                  <li className="flex items-center text-sm">
-                    <Shield className="h-4 w-4 mr-2 text-green-600" />
-                    Private datacenters
-                  </li>
-                </ul>
-                <button className="neu-button w-full py-3 font-medium">
-                  Contact Sales
-                </button>
+            </div>
+
+            <div className="glass-card p-8 group">
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                <Globe className="h-6 w-6 text-purple-400" />
+              </div>
+              <h3 className="text-2xl font-bold mb-3">Global Edge Network</h3>
+              <p className="text-gray-400 mb-4">
+                Deploy to 7 regions worldwide. Serve users from the nearest location.
+              </p>
+              <div className="flex items-center gap-2 text-purple-400 text-sm font-medium">
+                Learn more <ArrowRight className="h-4 w-4" />
+              </div>
+            </div>
+
+            <div className="glass-card p-8 group">
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-green-500/20 to-emerald-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                <Lock className="h-6 w-6 text-green-400" />
+              </div>
+              <h3 className="text-2xl font-bold mb-3">Enterprise Security</h3>
+              <p className="text-gray-400 mb-4">
+                SOC 2 compliant with encryption at rest and in transit. Full audit logs.
+              </p>
+              <div className="flex items-center gap-2 text-green-400 text-sm font-medium">
+                Learn more <ArrowRight className="h-4 w-4" />
               </div>
             </div>
           </div>
         </section>
-      </main>
 
-      {/* Footer */}
-      <footer className="neu-card mx-4 mb-4 p-6">
-        <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-sm text-gray-600">
-            © 2024 NebulaDB. All rights reserved.
-          </p>
-          <nav className="flex gap-6 mt-4 sm:mt-0">
-            <Link className="text-sm hover:text-primary transition-colors" href="/terms">
-              Terms
+        {/* Pricing */}
+        <section className="container mx-auto px-6 py-32">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold mb-4">Simple pricing</h2>
+            <p className="text-xl text-gray-400">Start free, scale as you grow</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="glass-card p-8 hover:border-cyan-500/50 transition">
+              <div className="text-sm text-gray-400 mb-2">Free</div>
+              <div className="text-5xl font-bold mb-6">$0</div>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-center gap-3 text-gray-300">
+                  <Check className="h-5 w-5 text-cyan-400" />
+                  500MB Storage
+                </li>
+                <li className="flex items-center gap-3 text-gray-300">
+                  <Check className="h-5 w-5 text-cyan-400" />
+                  1K API calls/month
+                </li>
+                <li className="flex items-center gap-3 text-gray-300">
+                  <Check className="h-5 w-5 text-cyan-400" />
+                  Community support
+                </li>
+              </ul>
+              <button className="w-full py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition">
+                Get Started
+              </button>
+            </div>
+
+            <div className="glass-card p-8 border-cyan-500/50 relative">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-sm font-medium">
+                Popular
+              </div>
+              <div className="text-sm text-gray-400 mb-2">Pro</div>
+              <div className="text-5xl font-bold mb-6">
+                $29<span className="text-xl text-gray-400">/mo</span>
+              </div>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-center gap-3 text-gray-300">
+                  <Check className="h-5 w-5 text-cyan-400" />
+                  10GB Storage
+                </li>
+                <li className="flex items-center gap-3 text-gray-300">
+                  <Check className="h-5 w-5 text-cyan-400" />
+                  100K API calls/month
+                </li>
+                <li className="flex items-center gap-3 text-gray-300">
+                  <Check className="h-5 w-5 text-cyan-400" />
+                  Priority support
+                </li>
+                <li className="flex items-center gap-3 text-gray-300">
+                  <Check className="h-5 w-5 text-cyan-400" />
+                  All regions
+                </li>
+              </ul>
+              <button className="w-full py-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 hover:shadow-lg hover:shadow-cyan-500/50 transition">
+                Start Pro Trial
+              </button>
+            </div>
+
+            <div className="glass-card p-8 hover:border-cyan-500/50 transition">
+              <div className="text-sm text-gray-400 mb-2">Enterprise</div>
+              <div className="text-5xl font-bold mb-6">Custom</div>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-center gap-3 text-gray-300">
+                  <Check className="h-5 w-5 text-cyan-400" />
+                  Unlimited storage
+                </li>
+                <li className="flex items-center gap-3 text-gray-300">
+                  <Check className="h-5 w-5 text-cyan-400" />
+                  Unlimited API calls
+                </li>
+                <li className="flex items-center gap-3 text-gray-300">
+                  <Check className="h-5 w-5 text-cyan-400" />
+                  24/7 support
+                </li>
+                <li className="flex items-center gap-3 text-gray-300">
+                  <Check className="h-5 w-5 text-cyan-400" />
+                  SLA guarantee
+                </li>
+              </ul>
+              <button className="w-full py-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition">
+                Contact Sales
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="container mx-auto px-6 py-32">
+          <div className="glass-card p-16 text-center glow-effect">
+            <h2 className="text-5xl font-bold mb-6">Ready to build?</h2>
+            <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+              Join thousands of developers building with NebulaDB
+            </p>
+            <Link href="/auth/register">
+              <button className="px-8 py-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold hover:shadow-2xl hover:shadow-cyan-500/50 transition">
+                Start Building Free
+              </button>
             </Link>
-            <Link className="text-sm hover:text-primary transition-colors" href="/privacy">
-              Privacy
-            </Link>
-            <Link className="text-sm hover:text-primary transition-colors" href="/docs">
-              Docs
-            </Link>
-          </nav>
-        </div>
-      </footer>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="border-t border-white/10 py-12">
+          <div className="container mx-auto px-6 flex justify-between items-center">
+            <p className="text-gray-400 text-sm">© 2024 NebulaDB. All rights reserved.</p>
+            <div className="flex gap-8">
+              <Link href="/terms" className="text-gray-400 hover:text-white text-sm transition">Terms</Link>
+              <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition">Privacy</Link>
+              <Link href="/docs" className="text-gray-400 hover:text-white text-sm transition">Docs</Link>
+            </div>
+          </div>
+        </footer>
+      </div>
     </div>
   )
 }

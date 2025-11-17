@@ -17,6 +17,10 @@ export default function DashboardLayout({
   const pathname = usePathname()
 
   useEffect(() => {
+    document.documentElement.classList.add('dark')
+  }, [])
+
+  useEffect(() => {
     const token = localStorage.getItem('access_token')
     const userData = localStorage.getItem('user')
     
@@ -59,9 +63,9 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen">
       {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
+      <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed inset-y-0 left-0 z-50 w-64 neu-card shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
         <div className="flex items-center justify-between h-16 px-4 border-b">
           <Link href="/dashboard" className="flex items-center">
             <Database className="h-8 w-8 text-primary" />
@@ -87,8 +91,8 @@ export default function DashboardLayout({
                   href={item.href}
                   className={`flex items-center px-4 py-2 text-sm font-medium rounded-md transition-colors ${
                     isActive
-                      ? 'bg-primary text-primary-foreground'
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                      ? 'neu-pressed bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                      : 'neu-button hover:scale-105'
                   }`}
                 >
                   <item.icon className="mr-3 h-5 w-5" />
@@ -131,7 +135,7 @@ export default function DashboardLayout({
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <header className="bg-white shadow-sm border-b h-16 flex items-center px-4 lg:px-6">
+        <header className="neu-card shadow-sm border-b h-16 flex items-center px-4 lg:px-6">
           <Button
             variant="ghost"
             size="icon"
