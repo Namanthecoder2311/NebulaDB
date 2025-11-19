@@ -36,7 +36,12 @@ export default function LoginPage() {
       localStorage.setItem('refresh_token', data.refresh_token)
       localStorage.setItem('user', JSON.stringify(data.user))
 
-      router.push('/dashboard')
+      // Check if user is admin and redirect accordingly
+      if (data.user.role === 'admin') {
+        router.push('/admin')
+      } else {
+        router.push('/dashboard')
+      }
     } catch (err: any) {
       setError(err.message)
     } finally {

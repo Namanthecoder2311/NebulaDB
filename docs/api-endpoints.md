@@ -1,305 +1,147 @@
-# NebulaDB API Documentation
+# NebulaDB Frontend Interface Documentation
 
-## Base URL
-```
-http://localhost:8080/api/v1
-```
+## Application Structure
 
-## Authentication
-All protected endpoints require a Bearer token in the Authorization header:
-```
-Authorization: Bearer <access_token>
-```
+The NebulaDB frontend provides a complete interface for database management with the following routes:
 
-## Endpoints
+## Authentication Pages
+- `/auth/login` - User login interface
+- `/auth/register` - User registration interface
 
-### Authentication
+## Dashboard Routes
+- `/dashboard` - Main dashboard overview
+- `/dashboard/projects` - Project management
+- `/dashboard/databases` - Database management
+- `/dashboard/sql-editor` - SQL editor interface
+- `/dashboard/api-keys` - API key management
+- `/dashboard/team` - Team management
+- `/dashboard/billing` - Billing and payments
+- `/dashboard/settings` - User settings
+- `/dashboard/analytics` - Usage analytics
+- `/dashboard/logs` - Activity logs
+- `/dashboard/webhooks` - Webhook configuration
+- `/dashboard/backups` - Backup management
+- `/dashboard/import-export` - Data import/export
 
-#### POST /auth/register
-Register a new user account.
+## Interface Components
 
-**Request Body:**
-```json
-{
-  "email": "user@example.com",
-  "password": "securepassword123",
-  "name": "John Doe"
-}
-```
+### Authentication Interface
 
-**Response:**
-```json
-{
-  "user": {
-    "id": "uuid",
-    "email": "user@example.com",
-    "name": "John Doe",
-    "email_verified": false,
-    "created_at": "2024-01-01T00:00:00Z"
-  },
-  "access_token": "jwt_token",
-  "refresh_token": "refresh_jwt_token"
-}
-```
+#### Login Page (`/auth/login`)
+- Email/password login form
+- OAuth provider buttons (Google, GitHub)
+- "Remember me" functionality
+- Password reset link
+- Registration redirect
 
-#### POST /auth/login
-Login with existing credentials.
+#### Registration Page (`/auth/register`)
+- User registration form
+- Email verification flow
+- Terms of service acceptance
+- OAuth registration options
+- Login redirect
 
-**Request Body:**
-```json
-{
-  "email": "user@example.com",
-  "password": "securepassword123"
-}
-```
+### Dashboard Interface
 
-**Response:** Same as register
+#### Main Dashboard (`/dashboard`)
+- Project overview cards
+- Usage statistics charts
+- Recent activity feed
+- Quick action buttons
+- Resource usage meters
 
-#### POST /auth/refresh
-Refresh access token using refresh token.
+#### Project Management (`/dashboard/projects`)
+- Project list with search/filter
+- Create new project modal
+- Project settings interface
+- Team member management
+- Project deletion confirmation
 
-### User Management
+#### Database Management (`/dashboard/databases`)
+- Database list with status indicators
+- Create database wizard
+- Connection string display
+- Database configuration panel
+- Performance metrics
+- Backup scheduling interface
 
-#### GET /user
-Get current user information.
+#### SQL Editor (`/dashboard/sql-editor`)
+- Syntax-highlighted SQL editor
+- Query execution interface
+- Result set display
+- Query history
+- Saved queries management
+- Export results functionality
 
-**Response:**
-```json
-{
-  "id": "uuid",
-  "email": "user@example.com",
-  "name": "John Doe",
-  "avatar_url": null,
-  "email_verified": false,
-  "created_at": "2024-01-01T00:00:00Z"
-}
-```
+#### API Management (`/dashboard/api-keys`)
+- API key generation interface
+- Key permissions configuration
+- Usage statistics per key
+- Key rotation functionality
+- Rate limiting settings
 
-#### PUT /user
-Update user information.
+#### Team Management (`/dashboard/team`)
+- Team member list
+- Invitation management
+- Role assignment interface
+- Permission matrix
+- Activity audit log
 
-### Projects
+#### Billing Interface (`/dashboard/billing`)
+- Current usage display
+- Billing history table
+- Payment method management
+- Subscription plan selection
+- Cost estimation calculator
+- Invoice download
 
-#### GET /projects
-List all projects for the authenticated user.
+#### Analytics Dashboard (`/dashboard/analytics`)
+- Usage charts and graphs
+- Performance metrics
+- Cost breakdown
+- Query performance analysis
+- User activity tracking
+- Export analytics data
 
-**Response:**
-```json
-[
-  {
-    "id": "uuid",
-    "name": "My Project",
-    "description": "Project description",
-    "owner_id": "uuid",
-    "created_at": "2024-01-01T00:00:00Z"
-  }
-]
-```
+#### Settings Panel (`/dashboard/settings`)
+- User profile management
+- Account preferences
+- Security settings
+- Notification preferences
+- API configuration
+- Data export options
 
-#### POST /projects
-Create a new project.
+#### Additional Interfaces
+- **Logs** (`/dashboard/logs`): Activity and audit log viewer
+- **Webhooks** (`/dashboard/webhooks`): Webhook configuration and testing
+- **Backups** (`/dashboard/backups`): Backup management and restoration
+- **Import/Export** (`/dashboard/import-export`): Data migration tools
 
-**Request Body:**
-```json
-{
-  "name": "My New Project",
-  "description": "Optional description"
-}
-```
+## Component Features
 
-#### GET /projects/:id
-Get specific project details.
+### Interactive Elements
+- **Forms**: Comprehensive form validation and error handling
+- **Tables**: Sortable, filterable data tables with pagination
+- **Charts**: Interactive charts for analytics and monitoring
+- **Modals**: Confirmation dialogs and detailed forms
+- **Notifications**: Toast notifications for user feedback
 
-#### PUT /projects/:id
-Update project information.
+### Responsive Design
+- Mobile-first responsive layout
+- Touch-friendly interface elements
+- Adaptive navigation for different screen sizes
+- Optimized performance on all devices
 
-#### DELETE /projects/:id
-Delete a project and all associated resources.
+### Accessibility
+- WCAG 2.1 compliant interface
+- Keyboard navigation support
+- Screen reader compatibility
+- High contrast mode support
+- Focus management
 
-### Databases
-
-#### GET /projects/:projectId/databases
-List all databases in a project.
-
-**Response:**
-```json
-[
-  {
-    "id": "uuid",
-    "name": "production_db",
-    "project_id": "uuid",
-    "storage_size_gb": 10,
-    "max_connections": 100,
-    "status": "active",
-    "created_at": "2024-01-01T00:00:00Z"
-  }
-]
-```
-
-#### POST /projects/:projectId/databases
-Create a new database.
-
-**Request Body:**
-```json
-{
-  "name": "my_database",
-  "storage_size_gb": 5
-}
-```
-
-#### GET /databases/:id
-Get database details and connection information.
-
-#### PUT /databases/:id
-Update database configuration.
-
-#### DELETE /databases/:id
-Delete a database (irreversible).
-
-### Tables
-
-#### GET /databases/:databaseId/tables
-List all tables in a database.
-
-**Response:**
-```json
-[
-  {
-    "id": "uuid",
-    "name": "users",
-    "schema_name": "public",
-    "columns": {
-      "id": {"type": "uuid", "primary_key": true},
-      "email": {"type": "varchar", "unique": true},
-      "name": {"type": "varchar"}
-    },
-    "indexes": [
-      {"name": "idx_users_email", "columns": ["email"]}
-    ],
-    "api_enabled": true
-  }
-]
-```
-
-#### POST /databases/:databaseId/tables
-Create a new table.
-
-**Request Body:**
-```json
-{
-  "name": "products",
-  "columns": {
-    "id": {"type": "uuid", "primary_key": true, "default": "gen_random_uuid()"},
-    "name": {"type": "varchar", "not_null": true},
-    "price": {"type": "decimal", "precision": 10, "scale": 2},
-    "created_at": {"type": "timestamp", "default": "NOW()"}
-  }
-}
-```
-
-#### GET /databases/:databaseId/tables/:name
-Get table schema and metadata.
-
-#### PUT /databases/:databaseId/tables/:name
-Update table schema (add/modify columns).
-
-#### DELETE /databases/:databaseId/tables/:name
-Drop a table.
-
-### Auto-Generated APIs
-
-#### GET /databases/:databaseId/api/endpoints
-List all auto-generated API endpoints for database tables.
-
-**Response:**
-```json
-[
-  {
-    "id": "uuid",
-    "table_id": "uuid",
-    "method": "GET",
-    "path": "/api/data/users",
-    "permissions": {"read": ["authenticated"]},
-    "rate_limit": 1000,
-    "enabled": true
-  }
-]
-```
-
-#### POST /databases/:databaseId/api/endpoints
-Create custom API endpoint.
-
-### Usage & Billing
-
-#### GET /projects/:projectId/usage
-Get usage statistics for a project.
-
-**Response:**
-```json
-{
-  "current_period": {
-    "start": "2024-01-01T00:00:00Z",
-    "end": "2024-01-31T23:59:59Z"
-  },
-  "compute_seconds": 1250.5,
-  "storage_gb_hours": 720.0,
-  "api_calls": 15000,
-  "estimated_cost": 25.50
-}
-```
-
-#### GET /projects/:projectId/usage/billing
-Get billing information and invoices.
-
-## Auto-Generated Data APIs
-
-For each table with `api_enabled: true`, the following endpoints are automatically created:
-
-### GET /api/data/:table_name
-List records with optional filtering, sorting, and pagination.
-
-**Query Parameters:**
-- `filter`: JSON filter object
-- `sort`: Sort field and direction
-- `limit`: Number of records (max 100)
-- `offset`: Pagination offset
-
-**Example:**
-```
-GET /api/data/users?filter={"status":"active"}&sort=created_at:desc&limit=10
-```
-
-### POST /api/data/:table_name
-Create a new record.
-
-### GET /api/data/:table_name/:id
-Get a specific record by ID.
-
-### PUT /api/data/:table_name/:id
-Update a specific record.
-
-### DELETE /api/data/:table_name/:id
-Delete a specific record.
-
-## Error Responses
-
-All endpoints return errors in the following format:
-
-```json
-{
-  "error": "Error message",
-  "code": "ERROR_CODE",
-  "details": {}
-}
-```
-
-### Common HTTP Status Codes
-- `200`: Success
-- `201`: Created
-- `400`: Bad Request
-- `401`: Unauthorized
-- `403`: Forbidden
-- `404`: Not Found
-- `409`: Conflict
-- `429`: Rate Limited
-- `500`: Internal Server Error
+### State Management
+- Client-side state with Zustand
+- Form state management
+- Authentication state handling
+- Real-time data synchronization
+- Optimistic UI updates

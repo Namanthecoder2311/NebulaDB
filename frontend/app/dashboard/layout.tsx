@@ -43,7 +43,6 @@ export default function DashboardLayout({
 
   const navigation = [
     { name: 'Overview', href: '/dashboard', icon: Home },
-    { name: 'CRUD', href: '/dashboard/crud', icon: Database },
     { name: 'Projects', href: '/dashboard/projects', icon: Database },
     { name: 'Databases', href: '/dashboard/databases', icon: Database },
     { name: 'SQL Editor', href: '/dashboard/sql-editor', icon: Database },
@@ -54,7 +53,7 @@ export default function DashboardLayout({
     { name: 'Team', href: '/dashboard/team', icon: Users },
     { name: 'Logs', href: '/dashboard/logs', icon: Activity },
     { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart3 },
-    { name: 'Billing', href: '/dashboard/billing', icon: Database },
+    { name: 'Billing', href: '/dashboard/billing', icon: BarChart3 },
     { name: 'Settings', href: '/dashboard/settings', icon: Settings },
   ]
 

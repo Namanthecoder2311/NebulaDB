@@ -1,12 +1,11 @@
-# Getting Started with NebulaDB Development
+# Getting Started with NebulaDB Frontend
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- **Docker Desktop** (for infrastructure services)
-- **Go 1.21+** (for backend development)
 - **Node.js 18+** (for frontend development)
 - **Git** (for version control)
+- **Code Editor** (VS Code recommended)
 
 ### 1. Clone and Setup
 ```bash
@@ -14,33 +13,22 @@
 git clone <repository-url>
 cd NebulaDB
 
-# Run setup script (Linux/Mac)
-chmod +x scripts/setup-dev.sh
-./scripts/setup-dev.sh
-
-# Or for Windows
-scripts\start-dev.bat
+# Install frontend dependencies
+cd frontend
+npm install
 ```
 
 ### 2. Start Development Environment
 ```bash
-# Start infrastructure services
-docker-compose up -d postgres redis minio
-
-# Start backend (Terminal 1)
-cd backend/metadata-api
-go run main.go
-
-# Start frontend (Terminal 2)
+# Start frontend development server
 cd frontend
 npm run dev
 ```
 
 ### 3. Access the Application
 - **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8080
-- **API Docs**: http://localhost:8080/docs
-- **MinIO Console**: http://localhost:9001 (nebuladb/nebuladb123)
+- **Development**: Live reload enabled
+- **Build**: `npm run build` for production build
 
 ---
 
@@ -53,15 +41,11 @@ NebulaDB/
 │   ├── components/          # Reusable UI components
 │   ├── lib/                 # Utility functions
 │   ├── hooks/               # Custom React hooks
-│   └── types/               # TypeScript type definitions
-├── backend/                 # Go microservices
-│   ├── metadata-api/        # Main API service
-│   ├── compute-engine/      # Serverless compute service
-│   ├── billing/             # Billing and usage service
-│   └── shared/              # Shared utilities and types
-├── infrastructure/          # Docker and K8s configs
+│   ├── types/               # TypeScript type definitions
+│   ├── store/               # State management
+│   └── styles/              # Global styles
 ├── docs/                    # Documentation
-└── scripts/                 # Development and deployment scripts
+└── scripts/                 # Deployment scripts
 ```
 
 ---
@@ -153,28 +137,21 @@ export function useDatabases() {
 
 ## 🧪 Testing Strategy
 
-### Backend Testing
-```bash
-# Unit tests
-go test ./internal/handlers/
-go test ./internal/services/
-
-# Integration tests
-go test ./tests/integration/
-
-# Load testing
-go test -bench=. ./tests/performance/
-```
-
 ### Frontend Testing
 ```bash
-# Unit tests
+# Unit tests with Jest
 npm test
 
-# E2E tests
+# Watch mode for development
+npm run test:watch
+
+# Coverage report
+npm run test:coverage
+
+# E2E tests with Playwright
 npm run test:e2e
 
-# Component testing
+# Component testing with Testing Library
 npm run test:components
 ```
 
@@ -182,55 +159,47 @@ npm run test:components
 
 ## 🐛 Debugging
 
-### Backend Debugging
-```bash
-# Enable debug logging
-export LOG_LEVEL=debug
-go run main.go
-
-# Use delve debugger
-dlv debug main.go
-```
-
 ### Frontend Debugging
 - Use **React Developer Tools**
 - Enable **Next.js debug mode**
 - Check **Network tab** for API calls
 - Use **console.log** strategically
+- **VS Code debugger** for breakpoints
+- **Next.js built-in error overlay**
 
-### Database Debugging
+### Development Tools
 ```bash
-# Connect to PostgreSQL
-docker-compose exec postgres psql -U nebuladb -d nebuladb
+# Enable debug mode
+NODE_ENV=development npm run dev
 
-# View logs
-docker-compose logs postgres
+# Analyze bundle size
+npm run analyze
 
-# Monitor queries
-docker-compose exec postgres tail -f /var/log/postgresql/postgresql.log
+# Check for unused dependencies
+npm run depcheck
 ```
 
 ---
 
-## 📊 Monitoring & Logging
+## 📊 Monitoring & Analytics
 
-### Local Development
+### Development Monitoring
 ```bash
-# View application logs
-docker-compose logs -f metadata-api
+# View Next.js build analysis
+npm run build -- --analyze
 
-# Monitor resource usage
-docker stats
+# Monitor performance
+npm run lighthouse
 
-# Check service health
-curl http://localhost:8080/api/v1/health
+# Check accessibility
+npm run a11y
 ```
 
-### Production Monitoring
-- **Prometheus**: Metrics collection
-- **Grafana**: Visualization and alerting
-- **ELK Stack**: Centralized logging
-- **Jaeger**: Distributed tracing
+### Production Analytics
+- **Vercel Analytics**: Built-in performance monitoring
+- **Web Vitals**: Core performance metrics
+- **Error Tracking**: Automatic error reporting
+- **User Analytics**: Usage patterns and insights
 
 ---
 

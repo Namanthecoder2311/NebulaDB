@@ -5,22 +5,15 @@ A fully serverless Backend-as-a-Service platform where users can create database
 ## Architecture
 
 - **Frontend**: Next.js (JavaScript/Node.js) + TailwindCSS + ShadCN
-- **Backend**: Golang microservices
-- **Database**: PostgreSQL (metadata) + Serverless Postgres (user data)
-- **Storage**: MinIO (S3-compatible)
+- **Database**: PostgreSQL (serverless)
 - **Billing**: Stripe integration
-- **Monitoring**: Prometheus + Grafana
+- **Deployment**: Vercel (Frontend)
 
 ## Project Structure
 
 ```
 NebulaDB/
 ├── frontend/          # Next.js application
-├── backend/           # Golang services
-│   ├── metadata-api/  # Main API service
-│   ├── compute-engine/ # Serverless compute
-│   └── billing/       # Billing service
-├── infrastructure/    # Docker, K8s configs
 ├── docs/             # Documentation
 └── scripts/          # Deployment scripts
 ```
@@ -28,21 +21,20 @@ NebulaDB/
 ## Quick Start
 
 1. **Frontend**: `cd frontend && npm install && npm run dev`
-2. **Backend**: `cd backend/metadata-api && go run main.go`
-3. **Database**: `docker-compose up postgres`
+2. **Deploy**: See `VERCEL-DEPLOY.md` for deployment instructions
 
 ## Team
 
 - **Frontend Developer**: Rohit
-- **Backend Developer**: Naman (Project Manager)
+- **Project Manager**: Naman
 
 ## ✅ MVP Complete: 6 Weeks
 
-✅ Week 1: Backend foundations
-✅ Week 2: Database provisioning  
+✅ Week 1: Frontend foundations
+✅ Week 2: Database integration  
 ✅ Week 3: Frontend UI
-✅ Week 4: Auto-generated APIs
-✅ Week 5: Logging & monitoring
+✅ Week 4: API integration
+✅ Week 5: Analytics & monitoring
 ✅ Week 6: Billing & deployment
 
 ## 🚀 Production Ready
@@ -52,4 +44,4 @@ NebulaDB/
 - Auto-generated REST APIs
 - Real-time monitoring and analytics
 - Stripe billing integration
-- Production deployment with Docker
+- Production deployment with Vercel

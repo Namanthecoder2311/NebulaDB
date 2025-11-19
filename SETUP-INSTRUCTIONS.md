@@ -7,20 +7,19 @@
 
 ## Your System
 ✅ Node.js installed
-❌ Docker not installed
-❌ Go not installed
+✅ Ready for frontend development
 
 ## Choose Your Path
 
-### 🌐 Path 1: Cloud Deployment (Recommended - No Installation)
+### 🌐 Path 1: Cloud Deployment (Recommended)
 
-**Best for**: Quick start, no local setup needed
+**Best for**: Quick start, production deployment
 
 **Steps**:
 1. Read: `DEPLOY-NOW.md`
 2. Push code to GitHub
-3. Deploy to Railway (backend) + Vercel (frontend)
-4. Live in 5 minutes!
+3. Deploy to Vercel (frontend)
+4. Live in 3 minutes!
 
 **Pros**:
 - No local installation required
@@ -28,28 +27,27 @@
 - Automatic scaling
 - SSL included
 
-### 💻 Path 2: Local Development (Full Features)
+### 💻 Path 2: Local Development
 
 **Best for**: Development and testing
 
 **Requirements**:
-1. Install Docker Desktop: https://www.docker.com/products/docker-desktop
-2. Install Go 1.21+: https://go.dev/dl/
+1. Node.js 18+ (already installed)
 
 **Steps**:
 ```bash
-# After installing Docker and Go
-cd d:\Projects\NebulaDB
-scripts\start-dev.bat
+cd d:\Projects\NebulaDB\frontend
+npm install
+npm run dev
 ```
 
 **Pros**:
 - Full control
 - Faster development
-- No internet required
-- Complete feature access
+- No additional setup required
+- Live reload
 
-### 🎨 Path 3: Frontend Demo Only (Available Now)
+### 🎨 Path 3: Frontend Demo (Available Now)
 
 **Best for**: UI preview without backend
 
@@ -72,7 +70,7 @@ Open: http://localhost:3000
 
 ## Recommended: Cloud Deployment
 
-Since you don't have Docker/Go installed, I recommend:
+For the best experience, I recommend:
 
 ### Quick Start (5 minutes)
 
@@ -90,20 +88,12 @@ Since you don't have Docker/Go installed, I recommend:
    git push -u origin main
    ```
 
-3. **Deploy Backend**
-   - Go to: https://railway.app
-   - Sign in with GitHub
-   - "New Project" → "Deploy from GitHub"
-   - Select nebuladb repo
-   - Add PostgreSQL database
-   - Deploy!
-
-4. **Deploy Frontend**
+3. **Deploy Frontend**
    - Go to: https://vercel.com
    - Sign in with GitHub
    - "New Project" → Import nebuladb
    - Set root: `frontend`
-   - Add env: `NEXT_PUBLIC_API_URL=<railway-url>/api/v1`
+
    - Deploy!
 
 5. **Access Your App**
@@ -114,21 +104,18 @@ Since you don't have Docker/Go installed, I recommend:
 ## What You Get
 
 ### Complete Features
-✅ User authentication
-✅ Project management
-✅ Database creation
+✅ User interface
+✅ Project management UI
+✅ Database management UI
 ✅ SQL editor with syntax highlighting
-✅ Auto-generated REST APIs
-✅ Real-time analytics
-✅ Usage monitoring
+✅ Analytics dashboard
 ✅ Billing dashboard
-✅ API explorer and testing
+✅ API explorer interface
 
 ### Tech Stack
 - **Frontend**: Next.js, React, TailwindCSS
-- **Backend**: Go, PostgreSQL
-- **Infrastructure**: Docker, Nginx
-- **Deployment**: Railway, Vercel
+- **Deployment**: Vercel
+- **Styling**: ShadCN UI components
 
 ## Support Files Created
 

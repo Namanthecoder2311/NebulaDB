@@ -1,155 +1,97 @@
-# NebulaDB Architecture
+# NebulaDB Frontend Architecture
 
 ## System Overview
 
-NebulaDB is a serverless PostgreSQL Backend-as-a-Service (BaaS) platform that provides:
-- Serverless PostgreSQL databases with auto-scaling compute
-- Auto-generated REST APIs from database schemas
-- Real-time monitoring and usage analytics
-- Pay-as-you-go billing model
+NebulaDB is a modern frontend interface for database management that provides:
+- Complete user interface for database operations
+- SQL editor with syntax highlighting
+- Real-time dashboard and analytics UI
+- Billing and payment interface
 
 ## Architecture Diagram
 
 ```mermaid
 graph TB
-    subgraph "Frontend Layer"
+    subgraph "Frontend Application"
         UI[Next.js Frontend]
         Dashboard[Dashboard UI]
         SQLEditor[SQL Editor]
         APITester[API Tester]
+        Auth[Authentication UI]
+        Billing[Billing Interface]
     end
 
-    subgraph "API Gateway"
-        LB[Load Balancer]
-        Auth[Authentication]
-        RateLimit[Rate Limiting]
+    subgraph "Deployment"
+        Vercel[Vercel Platform]
+        CDN[Global CDN]
+        Edge[Edge Functions]
     end
 
-    subgraph "Backend Services"
-        MetadataAPI[Metadata API<br/>Go Service]
-        ComputeEngine[Compute Engine<br/>Go Service]
-        BillingService[Billing Service<br/>Go Service]
-        APIGenerator[API Generator<br/>Go Service]
+    subgraph "External Services"
+        OAuth[OAuth Providers]
+        Stripe[Stripe Payments]
+        Database[External Database]
     end
 
-    subgraph "Data Layer"
-        MetaDB[(Metadata DB<br/>PostgreSQL)]
-        UserDB[(User Databases<br/>Serverless PostgreSQL)]
-        ObjectStore[Object Storage<br/>MinIO/S3]
-        Cache[(Redis Cache)]
-    end
-
-    subgraph "Infrastructure"
-        K8s[Kubernetes Cluster]
-        Monitoring[Prometheus + Grafana]
-        Logging[Centralized Logging]
-    end
-
-    UI --> LB
-    Dashboard --> LB
-    SQLEditor --> LB
-    APITester --> LB
-
-    LB --> Auth
-    Auth --> RateLimit
-    RateLimit --> MetadataAPI
-    RateLimit --> ComputeEngine
-    RateLimit --> BillingService
-
-    MetadataAPI --> MetaDB
-    MetadataAPI --> Cache
-    ComputeEngine --> UserDB
-    ComputeEngine --> ObjectStore
-    BillingService --> MetaDB
-    APIGenerator --> UserDB
-
-    K8s --> Backend Services
-    Monitoring --> Backend Services
-    Logging --> Backend Services
+    UI --> Vercel
+    Dashboard --> Vercel
+    SQLEditor --> Vercel
+    APITester --> Vercel
+    Auth --> OAuth
+    Billing --> Stripe
+    
+    Vercel --> CDN
+    Vercel --> Edge
+    Edge --> Database
 ```
 
 ## Component Details
 
-### Frontend Layer
+### Frontend Application
 
 #### Next.js Application
 - **Technology**: React 18, Next.js 14, TypeScript
 - **UI Framework**: TailwindCSS + ShadCN components
 - **State Management**: Zustand
+- **Authentication**: NextAuth.js
 - **Key Features**:
-  - User authentication and registration
-  - Project and database management
+  - User authentication and registration UI
+  - Project and database management interface
   - SQL editor with syntax highlighting
   - Real-time monitoring dashboards
   - API testing interface
+  - Billing and payment interface
+  - Team management interface
+  - Settings and configuration panels
 
-### Backend Services
+#### Component Architecture
+- **Pages**: Next.js App Router structure
+- **Components**: Reusable UI components with ShadCN
+- **Hooks**: Custom React hooks for state management
+- **Utils**: Helper functions and utilities
+- **Types**: TypeScript type definitions
+- **Styles**: TailwindCSS for styling
 
-#### 1. Metadata API Service
-- **Technology**: Go (Golang)
-- **Responsibilities**:
-  - User authentication and authorization
-  - Project and database lifecycle management
-  - Table schema management
-  - API endpoint configuration
-  - Usage tracking and logging
+### External Integrations
 
-#### 2. Compute Engine Service
-- **Technology**: Go (Golang)
-- **Responsibilities**:
-  - Serverless PostgreSQL instance management
-  - Query execution and result streaming
-  - Connection pooling and optimization
-  - Auto-scaling based on demand
-  - Security sandboxing
-
-#### 3. Billing Service
-- **Technology**: Go (Golang)
-- **Responsibilities**:
-  - Usage metering and aggregation
-  - Stripe payment processing
-  - Invoice generation
-  - Subscription management
-  - Cost optimization recommendations
-
-#### 4. API Generator Service
-- **Technology**: Go (Golang)
-- **Responsibilities**:
-  - Dynamic REST API generation from schemas
-  - Query optimization and caching
-  - Permission enforcement
-  - Rate limiting per endpoint
-  - API documentation generation
-
-### Data Layer
-
-#### Metadata Database (PostgreSQL)
-Stores system metadata including:
-- User accounts and authentication
-- Projects and team memberships
-- Database configurations
-- Table schemas and relationships
-- API endpoint definitions
-- Usage logs and billing data
-
-#### User Databases (Serverless PostgreSQL)
-- Ephemeral compute instances
-- Persistent storage volumes
-- Automatic backup and recovery
-- Point-in-time recovery (PITR)
-- Connection pooling
-
-#### Object Storage (MinIO/S3)
-- Database backups and snapshots
-- Large object storage
-- Static file hosting
-- Log archival
-
-#### Cache Layer (Redis)
+#### Authentication Providers
+- NextAuth.js integration
+- Google OAuth support
+- GitHub OAuth support
+- Email/password authentication
 - Session management
-- Query result caching
-- Rate limiting counters
-- Real-time metrics
+
+#### Payment Processing
+- Stripe integration for billing
+- Subscription management interface
+- Payment method management
+- Invoice generation UI
+
+#### Database Connectivity
+- Ready for external database integration
+- Connection string management
+- Query interface preparation
+- Schema visualization components
 
 ## Serverless Compute Architecture
 

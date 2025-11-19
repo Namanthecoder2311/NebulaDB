@@ -1,43 +1,10 @@
-# NebulaDB Cloud Deployment Guide
+# NebulaDB Frontend Deployment Guide
 
-## Deploy to Cloud (No Local Installation Required)
+## Deploy Frontend to Cloud (No Backend Required)
 
-### Option A: Railway + Vercel (Recommended - Free Tier)
+### Option A: Vercel (Recommended - Free Tier)
 
-#### Step 1: Deploy Backend to Railway
-
-1. **Create Railway Account**
-   - Go to: https://railway.app
-   - Sign up with GitHub
-
-2. **Create New Project**
-   - Click "New Project"
-   - Select "Deploy from GitHub repo"
-   - Connect your GitHub account
-   - Push NebulaDB code to GitHub first
-
-3. **Add PostgreSQL Database**
-   - In Railway project, click "New"
-   - Select "Database" → "PostgreSQL"
-   - Railway will auto-provision the database
-
-4. **Deploy Backend Service**
-   - Click "New" → "GitHub Repo"
-   - Select NebulaDB repository
-   - Set root directory: `backend/metadata-api`
-   - Add environment variables:
-     ```
-     PORT=8080
-     DATABASE_URL=${{Postgres.DATABASE_URL}}
-     JWT_SECRET=your-secret-key-here
-     ENVIRONMENT=production
-     ```
-
-5. **Get Backend URL**
-   - Railway will provide a URL like: `https://your-app.railway.app`
-   - Copy this URL
-
-#### Step 2: Deploy Frontend to Vercel
+#### Deploy Frontend to Vercel
 
 1. **Create Vercel Account**
    - Go to: https://vercel.com
@@ -49,74 +16,53 @@
    - Framework: Next.js (auto-detected)
    - Root Directory: `frontend`
 
-3. **Configure Environment**
-   - Add environment variable:
+3. **Configure Environment** (Optional)
+   - Add environment variables if needed:
      ```
-     NEXT_PUBLIC_API_URL=https://your-app.railway.app/api/v1
+     NEXTAUTH_SECRET=your-nextauth-secret
+     NEXTAUTH_URL=https://your-app.vercel.app
      ```
-   - Replace with your Railway backend URL
 
 4. **Deploy**
    - Click "Deploy"
    - Vercel will build and deploy automatically
    - You'll get a URL like: `https://nebuladb.vercel.app`
 
-### Option B: Render (All-in-One)
+### Option B: Netlify
 
-1. **Create Render Account**
-   - Go to: https://render.com
+1. **Create Netlify Account**
+   - Go to: https://netlify.com
    - Sign up with GitHub
 
-2. **Create PostgreSQL Database**
-   - Dashboard → "New" → "PostgreSQL"
-   - Name: nebuladb-postgres
-   - Copy the Internal Database URL
-
-3. **Deploy Backend**
-   - "New" → "Web Service"
+2. **Deploy Frontend**
+   - "Add new site" → "Import an existing project"
    - Connect GitHub repository
-   - Root Directory: `backend/metadata-api`
-   - Build Command: `go build -o main .`
-   - Start Command: `./main`
-   - Environment Variables:
-     ```
-     DATABASE_URL=<your-postgres-url>
-     JWT_SECRET=your-secret-key
-     PORT=8080
-     ```
+   - Base directory: `frontend`
+   - Build command: `npm run build`
+   - Publish directory: `.next`
+   - Framework preset: Next.js (auto-detected)
 
-4. **Deploy Frontend**
-   - "New" → "Static Site"
-   - Root Directory: `frontend`
-   - Build Command: `npm install && npm run build`
-   - Publish Directory: `.next`
-   - Environment Variable:
-     ```
-     NEXT_PUBLIC_API_URL=https://your-backend.onrender.com/api/v1
-     ```
+### Option C: GitHub Pages (Static Export)
 
-### Option C: Heroku (Classic)
-
-1. **Install Heroku CLI**
-   ```bash
-   # Download from: https://devcenter.heroku.com/articles/heroku-cli
+1. **Configure Next.js for Static Export**
+   ```javascript
+   // next.config.js
+   /** @type {import('next').NextConfig} */
+   const nextConfig = {
+     output: 'export',
+     trailingSlash: true,
+     images: {
+       unoptimized: true
+     }
+   }
+   
+   module.exports = nextConfig
    ```
 
-2. **Deploy Backend**
-   ```bash
-   cd backend/metadata-api
-   heroku create nebuladb-api
-   heroku addons:create heroku-postgresql:mini
-   git push heroku main
-   ```
-
-3. **Deploy Frontend**
-   ```bash
-   cd frontend
-   heroku create nebuladb-frontend
-   heroku config:set NEXT_PUBLIC_API_URL=https://nebuladb-api.herokuapp.com/api/v1
-   git push heroku main
-   ```
+2. **Deploy to GitHub Pages**
+   - Enable GitHub Pages in repository settings
+   - Set source to GitHub Actions
+   - Push code to trigger deployment
 
 ## Quick Deploy with Railway (Fastest)
 
