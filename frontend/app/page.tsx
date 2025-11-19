@@ -239,7 +239,7 @@ export default function HomePage() {
         {/* Footer */}
         <footer className="border-t border-white/10 py-12">
           <div className="container mx-auto px-6 flex justify-between items-center">
-            <p className="text-gray-400 text-sm">© 2024 NebulaDB. All rights reserved.</p>
+            <p className="text-gray-400 text-sm">© 2025 NebulaDB. All rights reserved.</p>
             <div className="flex gap-8">
               <Link href="/terms" className="text-gray-400 hover:text-white text-sm transition">Terms</Link>
               <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition">Privacy</Link>
