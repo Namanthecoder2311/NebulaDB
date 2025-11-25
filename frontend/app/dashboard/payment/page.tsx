@@ -2,6 +2,9 @@
 
 import { useState } from 'react'
 import { CreditCard, Lock, Check, Shield, Zap, Globe } from 'lucide-react'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import BillingDashboard from '@/components/dashboard/billing-dashboard'
+import { CreditCard } from 'lucide-react'
 
 export default function PaymentPage() {
   const [selectedPlan, setSelectedPlan] = useState('pro')
