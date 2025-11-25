@@ -1,69 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SuperBranch - Neon से Better Branching</title>
+
     <style>
+        /* Global */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
             line-height: 1.6;
+            color: #333;
         }
 
         .container {
             max-width: 1200px;
-            margin: 0 auto;
             padding: 20px;
+            margin: auto;
         }
 
         header {
             text-align: center;
             padding: 40px 0;
-            color: white;
+            color: #fff;
         }
 
         header h1 {
             font-size: 3rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, .3);
         }
 
         header p {
+            opacity: .9;
             font-size: 1.2rem;
-            opacity: 0.9;
         }
 
         .comparison-badge {
-            background: #ff6b6b;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            margin-top: 10px;
             display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            font-weight: bold;
+            border-radius: 20px;
+            color: #fff;
+            background: #ff6b6b;
         }
 
+        /* Features */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin: 40px 0;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         }
 
         .feature-card {
-            background: white;
+            background: #fff;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            transition: .3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
         }
 
         .feature-card:hover {
@@ -71,8 +75,8 @@
         }
 
         .feature-card h3 {
-            color: #667eea;
             margin-bottom: 15px;
+            color: #667eea;
             font-size: 1.4rem;
         }
 
@@ -85,26 +89,27 @@
             border-bottom: 1px solid #eee;
         }
 
-        .feature-list li:before {
+        .feature-list li::before {
             content: "✅ ";
             margin-right: 8px;
         }
 
+        /* Pricing */
         .pricing-tiers {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin: 40px 0;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         }
 
         .pricing-card {
-            background: white;
-            border-radius: 15px;
+            background: #fff;
             padding: 30px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 15px;
             position: relative;
-            transition: transform 0.3s ease;
+            transition: .3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
         }
 
         .pricing-card:hover {
@@ -115,55 +120,56 @@
             position: absolute;
             top: -10px;
             left: 50%;
-            transform: translateX(-50%);
-            background: #ff6b6b;
-            color: white;
             padding: 5px 15px;
             border-radius: 15px;
-            font-size: 0.8rem;
+            font-size: .8rem;
             font-weight: bold;
+            transform: translateX(-50%);
+            color: #fff;
+            background: #ff6b6b;
         }
 
         .price {
+            margin: 20px 0;
+            color: #667eea;
             font-size: 3rem;
             font-weight: bold;
-            color: #667eea;
-            margin: 20px 0;
         }
 
         .price span {
-            font-size: 1rem;
             color: #666;
+            font-size: 1rem;
         }
 
         .tier-name {
+            color: #333;
             font-size: 1.5rem;
             font-weight: bold;
-            color: #333;
         }
 
         .btn {
             display: inline-block;
             padding: 12px 30px;
-            background: #667eea;
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
             margin-top: 20px;
-            transition: background 0.3s ease;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 25px;
+            background: #667eea;
+            transition: .3s;
         }
 
         .btn:hover {
             background: #764ba2;
         }
 
+        /* Demo / Comparison / Calculator */
         .demo-section {
-            background: white;
+            margin: 40px 0;
             padding: 40px;
             border-radius: 15px;
-            margin: 40px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
         }
 
         .demo-controls {
@@ -173,41 +179,45 @@
             flex-wrap: wrap;
         }
 
-        .demo-controls input, .demo-controls select {
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
+        .demo-controls input,
+        .demo-controls select {
             flex: 1;
+            padding: 10px;
             min-width: 200px;
+            border-radius: 5px;
+            border: 2px solid #ddd;
         }
 
         .demo-result {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
+            display: none;
             margin-top: 20px;
+            padding: 20px;
             border-left: 4px solid #667eea;
+            border-radius: 10px;
+            background: #f8f9fa;
         }
 
+        /* Table */
         .comparison-table {
             width: 100%;
-            border-collapse: collapse;
             margin: 20px 0;
-            background: white;
-            border-radius: 10px;
+            border-collapse: collapse;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .comparison-table th, .comparison-table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
+            border-radius: 10px;
+            background: #fff;
         }
 
         .comparison-table th {
+            padding: 15px;
+            color: #fff;
             background: #667eea;
-            color: white;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
         }
 
         .comparison-table tr:hover {
@@ -224,34 +234,35 @@
             font-weight: bold;
         }
 
+        /* Footer */
         footer {
-            text-align: center;
             padding: 40px 0;
-            color: white;
-            opacity: 0.8;
+            text-align: center;
+            color: rgba(255, 255, 255, .8);
         }
 
-        @media (max-width: 768px) {
-            .features-grid, .pricing-tiers {
-                grid-template-columns: 1fr;
-            }
-            
+        @media(max-width: 768px) {
             header h1 {
                 font-size: 2rem;
             }
         }
     </style>
 </head>
+
 <body>
+
     <div class="container">
+
+        <!-- Header -->
         <header>
             <h1>🚀 SuperBranch</h1>
             <p>Neon से Better, Faster, Cheaper Branching Platform</p>
             <div class="comparison-badge">Neon से 20% सस्ता | 2x तेज | Better Features</div>
         </header>
 
-        <!-- Features Section -->
+        <!-- Features -->
         <section class="features-grid">
+            <!-- Card 1 -->
             <div class="feature-card">
                 <h3>⚡ Instant Branching</h3>
                 <ul class="feature-list">
@@ -261,7 +272,8 @@
                     <li>Branch from any point in history</li>
                 </ul>
             </div>
-            
+
+            <!-- Card 2 -->
             <div class="feature-card">
                 <h3>💰 Smart Pricing</h3>
                 <ul class="feature-list">
@@ -271,7 +283,8 @@
                     <li>No hidden charges</li>
                 </ul>
             </div>
-            
+
+            <!-- Card 3 -->
             <div class="feature-card">
                 <h3>🔧 Advanced Features</h3>
                 <ul class="feature-list">
@@ -283,10 +296,13 @@
             </div>
         </section>
 
-        <!-- Pricing Tiers -->
+        <!-- Pricing Section -->
         <section>
-            <h2 style="text-align: center; color: white; margin: 40px 0;">Pricing Plans</h2>
+            <h2 style="text-align:center; color:white; margin:40px 0;">Pricing Plans</h2>
+
             <div class="pricing-tiers">
+
+                <!-- Free -->
                 <div class="pricing-card">
                     <div class="tier-name">Forever Free</div>
                     <div class="price">$0<span>/month</span></div>
@@ -299,7 +315,8 @@
                     </ul>
                     <a href="#" class="btn">Get Started</a>
                 </div>
-                
+
+                <!-- Starter -->
                 <div class="pricing-card">
                     <div class="popular-badge">MOST POPULAR</div>
                     <div class="tier-name">Starter</div>
@@ -314,7 +331,8 @@
                     </ul>
                     <a href="#" class="btn">Start Free Trial</a>
                 </div>
-                
+
+                <!-- Pro -->
                 <div class="pricing-card">
                     <div class="tier-name">Professional</div>
                     <div class="price">$25<span>/month</span></div>
@@ -328,16 +346,17 @@
                     </ul>
                     <a href="#" class="btn">Go Professional</a>
                 </div>
+
             </div>
         </section>
 
-        <!-- Demo Section -->
+        <!-- Live Demo -->
         <section class="demo-section">
             <h2>🚀 Live Branching Demo</h2>
-            <p>Create branches instantly and see the power of SuperBranch</p>
-            
+            <p>Create branches instantly and see SuperBranch performance.</p>
+
             <div class="demo-controls">
-                <input type="text" id="branchName" placeholder="Enter branch name" value="feature/user-auth">
+                <input id="branchName" type="text" value="feature/user-auth" placeholder="Enter branch name">
                 <select id="sourceBranch">
                     <option value="main">From: main</option>
                     <option value="develop">From: develop</option>
@@ -348,17 +367,16 @@
                     <option value="schema-only">Schema Only</option>
                     <option value="custom">Custom Dataset</option>
                 </select>
-                <button onclick="createBranch()" class="btn">Create Branch</button>
+                <button class="btn" onclick="createBranch()">Create Branch</button>
             </div>
-            
-            <div id="demoResult" class="demo-result" style="display: none;">
-                <!-- Results will be shown here -->
-            </div>
+
+            <div id="demoResult" class="demo-result"></div>
         </section>
 
         <!-- Comparison Table -->
         <section class="demo-section">
             <h2>📊 SuperBranch vs Neon Comparison</h2>
+
             <table class="comparison-table">
                 <thead>
                     <tr>
@@ -409,32 +427,31 @@
             </table>
         </section>
 
-        <!-- Cost Calculator -->
+        <!-- Calculator -->
         <section class="demo-section">
             <h2>💰 Cost Calculator</h2>
-            <p>See how much you'll save compared to Neon</p>
-            
+            <p>Calculate your savings vs Neon.</p>
+
             <div class="demo-controls">
-                <input type="number" id="branchCount" placeholder="Number of Branches" value="15" min="0">
-                <input type="number" id="storageGB" placeholder="Storage (GB)" value="50" min="0" step="1">
-                <input type="number" id="computeHours" placeholder="Compute Hours" value="200" min="0">
-                <button onclick="calculateCost()" class="btn">Calculate Savings</button>
+                <input id="branchCount" type="number" value="15" placeholder="Number of Branches" min="0">
+                <input id="storageGB" type="number" value="50" placeholder="Storage (GB)" min="0">
+                <input id="computeHours" type="number" value="200" placeholder="Compute Hours" min="0">
+                <button class="btn" onclick="calculateCost()">Calculate Savings</button>
             </div>
-            
-            <div id="costResult" class="demo-result" style="display: none;">
-                <!-- Cost results will be shown here -->
-            </div>
+
+            <div id="costResult" class="demo-result"></div>
         </section>
+
     </div>
 
     <footer>
-        <p>© 2024 SuperBranch. All rights reserved. | Built with ❤️ for Developers</p>
+        © 2024 SuperBranch. All rights reserved.
     </footer>
 
-    <!-- Backend + Frontend JavaScript -->
     <script>
-        // Backend Logic - Branching System
+        /* Backend Simulation */
         class SuperBranchBackend {
+
             constructor() {
                 this.branches = [];
                 this.usageStats = {
@@ -443,228 +460,169 @@
                 };
             }
 
-            // Branch creation - Neon से faster
-            async createBranch(branchData) {
+            async createBranch(data) {
                 const branch = {
-                    id: 'branch_' + Date.now(),
-                    name: branchData.name,
-                    source: branchData.source,
-                    dataInclusion: branchData.dataInclusion,
-                    status: 'creating',
-                    createdAt: new Date(),
-                    size: this.calculateBranchSize(branchData)
+                    id: "branch_" + Date.now(),
+                    name: data.name,
+                    source: data.source,
+                    dataInclusion: data.dataInclusion,
+                    size: this.getSize(data.dataInclusion),
+                    status: "creating",
+                    createdAt: new Date()
                 };
 
-                // Simulate fast branch creation (1.5s vs Neon's 2s)
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                
-                branch.status = 'active';
-                branch.readyAt = new Date();
+                await new Promise(r => setTimeout(r, 1500));
+
+                branch.status = "active";
                 this.branches.push(branch);
                 this.usageStats.branchesCreated++;
-                
+
                 return branch;
             }
 
-            calculateBranchSize(branchData) {
+            getSize(type) {
                 const sizes = {
-                    'full': '5GB',
-                    'schema-only': '500MB', 
-                    'custom': '2GB'
+                    "full": "5GB",
+                    "schema-only": "500MB",
+                    "custom": "2GB"
                 };
-                return sizes[branchData.dataInclusion] || '1GB';
+                return sizes[type] || "1GB";
             }
 
-            // Cost calculation - Neon से better pricing
-            calculateCost(usage) {
-                const ourCost = {
-                    branches: Math.max(0, usage.branches - 5) * 0.08, // 5 free branches
-                    storage: usage.storage * 0.08, // $0.08/GB vs Neon's $0.10
-                    compute: usage.compute * 0.08, // $0.08/hour vs Neon's $0.10
-                    total: 0
+            calculateCost(input) {
+                const ours = {
+                    branches: Math.max(0, input.branches - 5) * 0.08,
+                    storage: input.storage * 0.08,
+                    compute: input.compute * 0.08
                 };
-                
-                ourCost.total = ourCost.branches + ourCost.storage + ourCost.compute;
-                
-                // Neon's cost for comparison
-                const neonCost = {
-                    branches: Math.max(0, usage.branches - 3) * 0.10, // 3 free branches
-                    storage: usage.storage * 0.10,
-                    compute: usage.compute * 0.10,
-                    total: 0
+                ours.total = ours.branches + ours.storage + ours.compute;
+
+                const neon = {
+                    branches: Math.max(0, input.branches - 3) * 0.10,
+                    storage: input.storage * 0.10,
+                    compute: input.compute * 0.10
                 };
-                
-                neonCost.total = neonCost.branches + neonCost.storage + neonCost.compute;
-                
-                const savings = neonCost.total - ourCost.total;
-                const savingsPercentage = ((savings / neonCost.total) * 100).toFixed(1);
-                
+                neon.total = neon.branches + neon.storage + neon.compute;
+
+                const savings = neon.total - ours.total;
+                const percent = ((savings / neon.total) * 100).toFixed(1);
+
                 this.usageStats.totalSavings += savings;
-                
+
                 return {
-                    ourPlatform: ourCost,
-                    neon: neonCost,
-                    savings: savings,
-                    savingsPercentage: savingsPercentage
+                    ours, neon,
+                    savings,
+                    percent
                 };
             }
 
-            // Get all branches
             getBranches() {
                 return this.branches;
             }
 
-            // Get usage statistics
             getStats() {
                 return this.usageStats;
             }
         }
 
-        // Frontend Logic
         const backend = new SuperBranchBackend();
 
-        // Branch creation function
+        /* Frontend Methods */
         async function createBranch() {
-            const branchName = document.getElementById('branchName').value;
-            const sourceBranch = document.getElementById('sourceBranch').value;
-            const dataInclusion = document.getElementById('dataInclusion').value;
-            
-            const demoResult = document.getElementById('demoResult');
-            demoResult.innerHTML = `
-                <div style="text-align: center;">
-                    <h3>🚀 Creating Branch...</h3>
-                    <p>Branch: <strong>${branchName}</strong></p>
-                    <p>Source: <strong>${sourceBranch}</strong></p>
-                    <p>Data: <strong>${dataInclusion}</strong></p>
-                    <div class="loading">⏳ Creating branch (1.5s)...</div>
-                </div>
+            const name = document.getElementById("branchName").value;
+            const source = document.getElementById("sourceBranch").value;
+            const dataInclusion = document.getElementById("dataInclusion").value;
+
+            const output = document.getElementById("demoResult");
+            output.style.display = "block";
+            output.innerHTML = `
+                <h3>🚀 Creating Branch...</h3>
+                <p><strong>${name}</strong> from <strong>${source}</strong></p>
+                <p>Data: ${dataInclusion}</p>
+                <p>⏳ Creation time: 1.5s</p>
             `;
-            demoResult.style.display = 'block';
 
-            try {
-                const branch = await backend.createBranch({
-                    name: branchName,
-                    source: sourceBranch,
-                    dataInclusion: dataInclusion
-                });
+            const result = await backend.createBranch({ name, source, dataInclusion });
 
-                demoResult.innerHTML = `
-                    <div style="text-align: center; color: #28a745;">
-                        <h3>✅ Branch Created Successfully!</h3>
-                        <p><strong>${branch.name}</strong> is now active</p>
-                        <p>Size: ${branch.size} | Status: ${branch.status}</p>
-                        <p>Created in: <strong>1.5 seconds</strong> (Neon में 2 seconds लगते)</p>
-                        <p>Branch ID: ${branch.id}</p>
-                        <div style="margin-top: 15px;">
-                            <button onclick="showAllBranches()" class="btn">View All Branches</button>
-                        </div>
-                    </div>
-                `;
-            } catch (error) {
-                demoResult.innerHTML = `
-                    <div style="text-align: center; color: #dc3545;">
-                        <h3>❌ Error Creating Branch</h3>
-                        <p>${error.message}</p>
-                    </div>
-                `;
-            }
+            output.innerHTML = `
+                <h3 style="color:#28a745;">Branch Created Successfully</h3>
+                <p><strong>${result.name}</strong> is active</p>
+                <p>Size: ${result.size}</p>
+                <p>Created in: <strong>1.5s</strong></p>
+                <button class="btn" onclick="showBranches()">View All Branches</button>
+            `;
         }
 
-        // Cost calculation function
         function calculateCost() {
-            const branches = parseInt(document.getElementById('branchCount').value) || 0;
-            const storage = parseInt(document.getElementById('storageGB').value) || 0;
-            const compute = parseInt(document.getElementById('computeHours').value) || 0;
-            
-            const costResult = document.getElementById('costResult');
-            
-            const result = backend.calculateCost({
-                branches: branches,
-                storage: storage,
-                compute: compute
-            });
+            const branches = Number(document.getElementById("branchCount").value);
+            const storage = Number(document.getElementById("storageGB").value);
+            const compute = Number(document.getElementById("computeHours").value);
 
-            costResult.innerHTML = `
-                <h3>💰 Cost Comparison Results</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                    <div style="background: #e8f5e8; padding: 15px; border-radius: 10px;">
-                        <h4 style="color: #28a745;">SuperBranch</h4>
-                        <p>Branches: $${result.ourPlatform.branches.toFixed(2)}</p>
-                        <p>Storage: $${result.ourPlatform.storage.toFixed(2)}</p>
-                        <p>Compute: $${result.ourPlatform.compute.toFixed(2)}</p>
+            const result = backend.calculateCost({ branches, storage, compute });
+
+            const output = document.getElementById("costResult");
+            output.style.display = "block";
+
+            output.innerHTML = `
+                <h3>💰 Cost Comparison</h3>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;">
+                    <div style="padding:15px;border-radius:10px;background:#e8f5e8;">
+                        <h4 style="color:#28a745;">SuperBranch</h4>
+                        <p>Branches: $${result.ours.branches.toFixed(2)}</p>
+                        <p>Storage: $${result.ours.storage.toFixed(2)}</p>
+                        <p>Compute: $${result.ours.compute.toFixed(2)}</p>
                         <hr>
-                        <p><strong>Total: $${result.ourPlatform.total.toFixed(2)}/month</strong></p>
+                        <p><strong>Total: $${result.ours.total.toFixed(2)}</strong></p>
                     </div>
-                    <div style="background: #ffe8e8; padding: 15px; border-radius: 10px;">
-                        <h4 style="color: #dc3545;">Neon</h4>
+
+                    <div style="padding:15px;border-radius:10px;background:#ffe8e8;">
+                        <h4 style="color:#dc3545;">Neon</h4>
                         <p>Branches: $${result.neon.branches.toFixed(2)}</p>
                         <p>Storage: $${result.neon.storage.toFixed(2)}</p>
                         <p>Compute: $${result.neon.compute.toFixed(2)}</p>
                         <hr>
-                        <p><strong>Total: $${result.neon.total.toFixed(2)}/month</strong></p>
+                        <p><strong>Total: $${result.neon.total.toFixed(2)}</strong></p>
                     </div>
                 </div>
-                <div style="text-align: center; margin-top: 20px; padding: 15px; background: #28a745; color: white; border-radius: 10px;">
-                    <h3>🎉 आप ${result.savingsPercentage}% बचत करेंगे!</h3>
-                    <p>Monthly Savings: <strong>$${result.savings.toFixed(2)}</strong></p>
-                    <p>Yearly Savings: <strong>$${(result.savings * 12).toFixed(2)}</strong></p>
+
+                <div style="margin-top:20px;padding:15px;border-radius:10px;text-align:center;background:#28a745;color:#fff;">
+                    <h3>You Save ${result.percent}%</h3>
+                    <p>Monthly Savings: $${result.savings.toFixed(2)}</p>
+                    <p>Yearly Savings: $${(result.savings * 12).toFixed(2)}</p>
                 </div>
             `;
-            costResult.style.display = 'block';
         }
 
-        // Show all branches
-        function showAllBranches() {
+        function showBranches() {
             const branches = backend.getBranches();
-            const stats = backend.getStats();
-            
-            const demoResult = document.getElementById('demoResult');
-            
-            if (branches.length === 0) {
-                demoResult.innerHTML = `
-                    <div style="text-align: center;">
-                        <h3>No branches created yet</h3>
-                        <p>Create your first branch above!</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            let branchesHTML = `
-                <h3>📁 Your Branches (${branches.length})</h3>
-                <div style="margin-top: 15px;">
-            `;
-            
-            branches.forEach(branch => {
-                branchesHTML += `
-                    <div style="background: #f8f9fa; padding: 10px; margin: 5px 0; border-radius: 5px; border-left: 4px solid #667eea;">
-                        <strong>${branch.name}</strong> 
-                        <span style="float: right; color: #28a745;">${branch.status}</span>
+            const output = document.getElementById("demoResult");
+
+            let html = `<h3> Your Branches (${branches.length})</h3>`;
+
+            branches.forEach(b => {
+                html += `
+                    <div style="background:#f8f9fa;margin:5px 0;padding:10px;border-left:4px solid #667eea;border-radius:5px;">
+                        <strong>${b.name}</strong>
+                        <span style="float:right;color:#28a745;">${b.status}</span>
                         <br>
-                        <small>Source: ${branch.source} | Size: ${branch.size} | Created: ${new Date(branch.createdAt).toLocaleTimeString()}</small>
+                        <small>Source: ${b.source} | Size: ${b.size}</small>
                     </div>
                 `;
             });
-            
-            branchesHTML += `
-                </div>
-                <div style="margin-top: 15px; padding: 10px; background: #667eea; color: white; border-radius: 5px;">
-                    <strong>Statistics:</strong> ${stats.branchesCreated} branches created | Total savings: $${stats.totalSavings.toFixed(2)}
-                </div>
-            `;
-            
-            demoResult.innerHTML = branchesHTML;
+
+            output.innerHTML = html;
         }
 
-        // Initialize with some demo data
-        window.onload = function() {
-            // Pre-populate with a demo branch
+        /* Demo Auto-Seed */
+        window.onload = () => {
             backend.createBranch({
-                name: 'develop',
-                source: 'main', 
-                dataInclusion: 'full'
+                name: "develop",
+                source: "main",
+                dataInclusion: "full"
             });
         };
     </script>
+
 </body>
 </html>
