@@ -536,10 +536,10 @@
             const output = document.getElementById("demoResult");
             output.style.display = "block";
             output.innerHTML = `
-                <h3>🚀 Creating Branch...</h3>
+                <h3> Creating Branch...</h3>
                 <p><strong>${name}</strong> from <strong>${source}</strong></p>
                 <p>Data: ${dataInclusion}</p>
-                <p>⏳ Creation time: 1.5s</p>
+                <p> Creation time: 1.5s</p>
             `;
 
             const result = await backend.createBranch({ name, source, dataInclusion });
@@ -564,7 +564,7 @@
             output.style.display = "block";
 
             output.innerHTML = `
-                <h3>💰 Cost Comparison</h3>
+                <h3>Cost Comparison</h3>
 
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;">
                     <div style="padding:15px;border-radius:10px;background:#e8f5e8;">
