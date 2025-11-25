@@ -19,7 +19,7 @@ export default function HomePage() {
               <div className="p-2 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-500">
                 <Database className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl font-bold gradient-text">NebulaDB</span>
+              <span className="text-2xl font-bold gradient-text">Rohit</span>
             </Link>
             <nav className="flex items-center gap-6">
               <Link href="/auth/login" className="text-sm text-gray-400 hover:text-white transition">
