@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { CreditCard, Lock, Check, Shield, Zap, Globe } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import <Payment></Payment>Dashboard from '@/components/dashboard/payment-dashboard'
+import <Payment> PaymentDashboard from '@/components/dashboard/payment-dashboard'
 import { CreditCard } from 'lucide-react'
 
 
