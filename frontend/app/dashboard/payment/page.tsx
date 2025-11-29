@@ -1,10 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { CreditCard, Lock, Check, Shield, Zap, Globe } from 'lucide-react'
+import { Lock, Check, Shield, Zap, Globe, CreditCard as CreditCardIcon } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import <Payment> PaymentDashboard from '@/components/dashboard/payment-dashboard'
-import { CreditCard } from 'lucide-react'
+import PaymentDashboard from '@/components/dashboard/payment-dashboard'
 
 
 export default function PaymentPage() {
