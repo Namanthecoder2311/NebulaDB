@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -26,6 +27,7 @@ export default function SQLEditorPage() {
   const [selectedProject, setSelectedProject] = useState('')
   const [selectedDatabase, setSelectedDatabase] = useState('')
   const [loading, setLoading] = useState(true)
+  const searchParams = useSearchParams()
 
   useEffect(() => {
     fetchProjects()
@@ -47,7 +49,10 @@ export default function SQLEditorPage() {
       if (response.ok) {
         const data = await response.json()
         setProjects(data)
-        if (data.length > 0) {
+        const param = searchParams?.get('project')
+        if (param && data.some((p: any) => p.id === param)) {
+          setSelectedProject(param)
+        } else if (data.length > 0) {
           setSelectedProject(data[0].id)
         }
       }
@@ -68,7 +73,10 @@ export default function SQLEditorPage() {
       if (response.ok) {
         const data = await response.json()
         setDatabases(data)
-        if (data.length > 0) {
+        const dbParam = searchParams?.get('database')
+        if (dbParam && data.some((d: any) => d.id === dbParam)) {
+          setSelectedDatabase(dbParam)
+        } else if (data.length > 0) {
           setSelectedDatabase(data[0].id)
         }
       }

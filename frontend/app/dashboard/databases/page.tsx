@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -31,6 +32,8 @@ export default function DatabasesPage() {
   const [createOpen, setCreateOpen] = useState(false)
   const [newDatabase, setNewDatabase] = useState({ name: '', storage_size_gb: 1 })
   const [loading, setLoading] = useState(true)
+  const searchParams = useSearchParams()
+  const router = useRouter()
 
   useEffect(() => {
     fetchProjects()
@@ -52,7 +55,11 @@ export default function DatabasesPage() {
       if (response.ok) {
         const data = await response.json()
         setProjects(data)
-        if (data.length > 0) {
+        // If URL provides a project param, prefer it
+        const param = searchParams?.get('project')
+        if (param && data.some((p: any) => p.id === param)) {
+          setSelectedProject(param)
+        } else if (data.length > 0) {
           setSelectedProject(data[0].id)
         }
       }
@@ -248,12 +255,12 @@ export default function DatabasesPage() {
                     </div>
                     
                     <div className="mt-4 flex space-x-2">
-                      <Button size="sm" className="flex-1">
-                        Connect
-                      </Button>
-                      <Button size="sm" variant="outline">
-                        <Settings className="h-4 w-4" />
-                      </Button>
+                      <Button size="sm" className="flex-1" onClick={() => router.push(`/dashboard/sql-editor?project=${selectedProject}&database=${database.id}`)}>
+                          Connect
+                        </Button>
+                        <Button size="sm" variant="outline" onClick={() => router.push(`/dashboard/settings?database=${database.id}`)}>
+                          <Settings className="h-4 w-4" />
+                        </Button>
                     </div>
                   </CardContent>
                 </Card>
