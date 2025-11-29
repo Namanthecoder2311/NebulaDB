@@ -211,7 +211,7 @@ export default function PaymentPage() {
             {selectedPlan !== 'free' && (
               <div className="neu-card p-8">
                 <h2 className="text-2xl font-bold mb-6 flex items-center">
-                  <CreditCard className="mr-3 h-6 w-6 text-primary" />
+                  <CreditCardIcon className="mr-3 h-6 w-6 text-primary" />
                   Payment Details
                 </h2>
 
