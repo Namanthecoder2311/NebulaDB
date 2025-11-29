@@ -21,6 +21,8 @@ export default function ProjectsPage() {
   const [loading, setLoading] = useState(true)
   const [createOpen, setCreateOpen] = useState(false)
   const [newProject, setNewProject] = useState({ name: '', description: '' })
+  const [submitting, setSubmitting] = useState(false)
+  const [notice, setNotice] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
 
   useEffect(() => {
     fetchProjects()
@@ -46,7 +48,21 @@ export default function ProjectsPage() {
 
   const createProject = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+    if (!newProject.name.trim() || submitting) return
+
+    const tempId = `temp-${Date.now()}`
+    const tempProject: Project = {
+      id: tempId,
+      name: newProject.name,
+      description: newProject.description,
+      created_at: new Date().toISOString(),
+      databases: 0,
+    }
+
+    // Optimistic UI: add temp project immediately
+    setProjects((prev) => [tempProject, ...prev])
+    setSubmitting(true)
+
     try {
       const token = localStorage.getItem('access_token')
       const response = await fetch('/api/projects', {
@@ -60,13 +76,35 @@ export default function ProjectsPage() {
 
       if (response.ok) {
         const project = await response.json()
-        setProjects([project, ...projects])
+        // Replace temp project with server-provided project
+        setProjects((prev) => [project, ...prev.filter((p) => p.id !== tempId)])
         setNewProject({ name: '', description: '' })
         setCreateOpen(false)
+        setNotice({ type: 'success', message: 'Project created successfully' })
+      } else {
+        // rollback optimistic update
+        setProjects((prev) => prev.filter((p) => p.id !== tempId))
+        const errText = await response.text().catch(() => 'Server error')
+        setNotice({ type: 'error', message: `Failed to create project: ${errText}` })
       }
     } catch (error) {
       console.error('Failed to create project:', error)
+      setProjects((prev) => prev.filter((p) => p.id !== tempId))
+      setNotice({ type: 'error', message: 'Failed to create project (network error)' })
+    } finally {
+      setSubmitting(false)
+      // auto-dismiss notice
+      setTimeout(() => setNotice(null), 4000)
     }
+  }
+
+  const quickCreate = async () => {
+    if (submitting) return
+    setNewProject({ name: 'Untitled Project', description: '' })
+    setCreateOpen(true)
+    // allow user to edit, or create immediately without modal:
+    // createProject will be triggered when user submits. For quick create without modal, you could
+    // call createProject directly with a synthetic event, but to keep semantics clear we just open modal.
   }
 
   if (loading) {
@@ -88,6 +126,9 @@ export default function ProjectsPage() {
               New Project
             </Button>
           </DialogTrigger>
+          <Button variant="ghost" onClick={quickCreate} className="ml-2">
+            Quick Create
+          </Button>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Create New Project</DialogTitle>
@@ -119,12 +160,20 @@ export default function ProjectsPage() {
                 <Button type="button" variant="outline" onClick={() => setCreateOpen(false)}>
                   Cancel
                 </Button>
-                <Button type="submit">Create Project</Button>
+                <Button type="submit" disabled={submitting || !newProject.name.trim()}>
+                  {submitting ? 'Creating...' : 'Create Project'}
+                </Button>
               </div>
             </form>
           </DialogContent>
         </Dialog>
       </div>
+
+      {notice && (
+        <div className={`mt-4 p-3 rounded ${notice.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+          {notice.message}
+        </div>
+      )}
 
       {projects.length === 0 ? (
         <Card>
